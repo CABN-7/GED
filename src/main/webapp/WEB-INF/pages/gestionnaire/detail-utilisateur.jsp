@@ -12,6 +12,42 @@
 <head>
     <title>Détail utilisateur</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css">
+    <style>
+        .container {
+            max-width: 700px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        ul li {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #34495e;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -27,16 +63,17 @@
                 <li><strong>Prénom :</strong> ${utilisateur.prenom}</li>
                 <li><strong>Email :</strong> ${utilisateur.email}</li>
                 <li><strong>Rôle :</strong> ${utilisateur.role}</li>
-                <li><strong>Actif :</strong> <c:choose>
-                    <c:when test="${utilisateur.actif}">Oui</c:when>
-                    <c:otherwise>Non</c:otherwise>
-                </c:choose>
+                <li><strong>Actif :</strong>
+                    <c:choose>
+                        <c:when test="${utilisateur.actif}">Oui</c:when>
+                        <c:otherwise>Non</c:otherwise>
+                    </c:choose>
                 </li>
                 <li><strong>Date de création :</strong> ${utilisateur.dateCreation}</li>
             </ul>
         </c:when>
         <c:otherwise>
-            <p>Utilisateur introuvable.</p>
+            <p style="color: red;">Utilisateur introuvable.</p>
         </c:otherwise>
     </c:choose>
 
@@ -45,4 +82,3 @@
 
 </body>
 </html>
-

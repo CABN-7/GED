@@ -2,27 +2,37 @@
 <%--
   Created by IntelliJ IDEA.
   User: cabnc
-  Date: 28/07/2025
-  Time: 22:47
+  Date: 29/07/2025
+  Time: 19:05
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
-<head><title>Changer de mot de passe</title></head>
+<head>
+    <title>Uploader un fichier</title>
+</head>
 <body>
-<h2>Changer de mot de passe</h2>
+<h1>Ajouter un nouveau document</h1>
 
 <c:if test="${not empty error}">
-    <p style="color: red">${error}</p>
+    <p style="color:red">${error}</p>
+</c:if>
+<c:if test="${not empty success}">
+    <p style="color:green">${success}</p>
 </c:if>
 
-<form method="post" action="${pageContext.request.contextPath}/changer-mot-de-passe">
-    <label>Nouveau mot de passe :</label><br/>
-    <input type="password" name="nouveauMotDePasse" required/><br/>
-    <label>Confirmer le mot de passe :</label><br/>
-    <input type="password" name="confirmation" required/><br/><br/>
-    <button type="submit">Changer</button>
+<form action="${pageContext.request.contextPath}/fichier" method="post" enctype="multipart/form-data">
+    <label>Titre :</label>
+    <input type="text" name="titre" required/><br/><br/>
+
+    <label>Choisir un fichier :</label>
+    <input type="file" name="fichier" required/><br/><br/>
+
+    <button type="submit">📤 Envoyer</button>
 </form>
+
+<a href="${pageContext.request.contextPath}/pages/utilisateur/dashboard.jsp">⬅ Retour au dashboard</a>
 </body>
 </html>
 

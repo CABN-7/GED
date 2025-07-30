@@ -6,8 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="dossier" value="${dossier}" scope="request"/>
-<c:set var="level" value="${param.level}"/>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<c:set var="dossier" value="${currentDossier}"/>
 
 <li class="folder-block">
     <span class="toggle-button">▶</span>

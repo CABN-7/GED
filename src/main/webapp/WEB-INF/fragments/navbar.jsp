@@ -9,65 +9,93 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:if test="${not empty sessionScope.user}">
-    <nav style="background-color:#2c3e50; padding: 10px;">
-        <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;">
+    <style>
+        .navbar {
+            background-color: #2c3e50;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
 
-            <!-- Titre -->
-            <div>
-                <span style="color: #ecf0f1; font-weight: bold; font-size: 1.2em;">
-                    GED - ${sessionScope.user.role}
-                </span>
-            </div>
+        .navbar-brand {
+            color: #ecf0f1;
+            font-size: 1.4em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
 
-            <!-- Navigation -->
-            <div style="display: flex; align-items: center; gap: 20px;">
+        .navbar-menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
 
-                <ul style="list-style: none; margin: 0; padding: 0; display: flex; gap: 20px;">
-                    <c:choose>
-                        <%-- GESTIONNAIRE --%>
-                        <c:when test="${sessionScope.user.role == 'GESTIONNAIRE'}">
-                            <li><a href="${pageContext.request.contextPath}/gestionnaire/dashboard"
-                                   style="color: #ecf0f1; text-decoration: none;">Dashboard</a></li>
-                            <li><a href="${pageContext.request.contextPath}/gestionnaire/documents"
-                                   style="color: #ecf0f1; text-decoration: none;">Documents</a></li>
-                            <li><a href="${pageContext.request.contextPath}/gestionnaire/utilisateurs"
-                                   style="color: #ecf0f1; text-decoration: none;">Utilisateurs</a></li>
-                        </c:when>
+        .navbar-menu a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 6px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
 
-                        <%-- UTILISATEUR --%>
-                        <c:when test="${sessionScope.user.role == 'UTILISATEUR'}">
-                            <li><a href="${pageContext.request.contextPath}/utilisateur/dashboard"
-                                   style="color: #ecf0f1; text-decoration: none;">Accueil</a></li>
-                            <li><a href="${pageContext.request.contextPath}/utilisateur/mes-documents"
-                                   style="color: #ecf0f1; text-decoration: none;">Mes documents</a></li>
-                            <li><a href="${pageContext.request.contextPath}/utilisateur/mes-dossiers"
-                                   style="color: #ecf0f1; text-decoration: none;">Mes dossiers</a></li>
-                            <li><a href="${pageContext.request.contextPath}/utilisateur/depot-document"
-                                   style="color: #ecf0f1; text-decoration: none;">Déposer</a></li>
-                        </c:when>
+        .navbar-menu a:hover {
+            background-color: #3498db;
+        }
 
+        .navbar-user {
+            color: #bdc3c7;
+            font-size: 0.95em;
+            margin-left: 15px;
+            font-style: italic;
+        }
 
-                        <%-- ADMIN --%>
-                        <c:when test="${sessionScope.user.role == 'ADMIN'}">
-                            <li><a href="${pageContext.request.contextPath}/admin/utilisateurs"
-                                   style="color: #ecf0f1; text-decoration: none;">Utilisateurs</a></li>
-                            <li><a href="${pageContext.request.contextPath}/admin/statistiques"
-                                   style="color: #ecf0f1; text-decoration: none;">Statistiques</a></li>
-                        </c:when>
-                    </c:choose>
+        @media screen and (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
 
-                    <!-- Déconnexion -->
-                    <li>
-                        <a href="${pageContext.request.contextPath}/logout"
-                           style="color: #ecf0f1; text-decoration: none;">Déconnexion</a>
-                    </li>
-                </ul>
+            .navbar-menu {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                margin-top: 10px;
+            }
+        }
+    </style>
 
-                <!-- Nom utilisateur -->
-                <span style="color: #ecf0f1; font-size: 0.9em;">
-                    Bonjour, ${sessionScope.user.prenom} ${sessionScope.user.nom}
-                </span>
-            </div>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            GED - ${sessionScope.user.role}
+        </div>
+
+        <div class="navbar-menu">
+            <c:choose>
+                <%-- GESTIONNAIRE --%>
+                <c:when test="${sessionScope.user.role == 'GESTIONNAIRE'}">
+                    <a href="${pageContext.request.contextPath}/gestionnaire/dashboard">Dashboard</a>
+                    <a href="${pageContext.request.contextPath}/gestionnaire/documents">Documents</a>
+                    <a href="${pageContext.request.contextPath}/gestionnaire/utilisateurs">Utilisateurs</a>
+                </c:when>
+
+                <%-- UTILISATEUR --%>
+                <c:when test="${sessionScope.user.role == 'UTILISATEUR'}">
+                    <a href="${pageContext.request.contextPath}/utilisateur/dashboard">Accueil</a>
+                    <a href="${pageContext.request.contextPath}/utilisateur/mes-documents">Mes documents</a>
+                    <a href="${pageContext.request.contextPath}/utilisateur/mes-dossiers">Mes dossiers</a>
+                    <a href="${pageContext.request.contextPath}/utilisateur/depot-document">Déposer</a>
+                </c:when>
+
+                <%-- ADMIN --%>
+                <c:when test="${sessionScope.user.role == 'ADMIN'}">
+                </c:when>
+            </c:choose>
+
+            <a href="${pageContext.request.contextPath}/logout">Déconnexion</a>
+            <span class="navbar-user">Bonjour, ${sessionScope.user.prenom} ${sessionScope.user.nom}</span>
         </div>
     </nav>
 </c:if>

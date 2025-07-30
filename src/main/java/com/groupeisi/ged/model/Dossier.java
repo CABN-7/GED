@@ -15,12 +15,18 @@ public class Dossier {
     @OneToMany(mappedBy = "dossier")
     private List<Document> documents;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private List<Dossier> sousDossiers;
 
     @ManyToOne
     private Dossier parent;
 
+    @ManyToOne
+    @JoinColumn(name = "proprietaire_id")
+    private Utilisateur proprietaire;
+
+    // Flag pour identifier le dossier racine
+    private boolean isRacine = false;
 
     public Dossier() {
     }
@@ -29,6 +35,12 @@ public class Dossier {
         this.nom = nom;
     }
 
+    public Dossier(String nom, Utilisateur proprietaire) {
+        this.nom = nom;
+        this.proprietaire = proprietaire;
+    }
+
+    // Getters et Setters
     public Long getId() {
         return id;
     }
@@ -39,22 +51,6 @@ public class Dossier {
 
     public String getNom() {
         return nom;
-    }
-
-    public List<Dossier> getSousDossiers() {
-        return sousDossiers;
-    }
-
-    public Dossier getParent() {
-        return parent;
-    }
-
-    public void setParent(Dossier parent) {
-        this.parent = parent;
-    }
-
-    public void setSousDossiers(List<Dossier> sousDossiers) {
-        this.sousDossiers = sousDossiers;
     }
 
     public void setNom(String nom) {
@@ -69,4 +65,35 @@ public class Dossier {
         this.documents = documents;
     }
 
+    public List<Dossier> getSousDossiers() {
+        return sousDossiers;
+    }
+
+    public void setSousDossiers(List<Dossier> sousDossiers) {
+        this.sousDossiers = sousDossiers;
+    }
+
+    public Dossier getParent() {
+        return parent;
+    }
+
+    public void setParent(Dossier parent) {
+        this.parent = parent;
+    }
+
+    public Utilisateur getProprietaire() {
+        return proprietaire;
+    }
+
+    public void setProprietaire(Utilisateur proprietaire) {
+        this.proprietaire = proprietaire;
+    }
+
+    public boolean isRacine() {
+        return isRacine;
+    }
+
+    public void setRacine(boolean racine) {
+        isRacine = racine;
+    }
 }

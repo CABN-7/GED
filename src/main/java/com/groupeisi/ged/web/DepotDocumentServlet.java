@@ -84,7 +84,7 @@ public class DepotDocumentServlet extends HttpServlet {
         Dossier dossier = null;
         try {
             if ("racine".equals(dossierParam)) {
-                dossier = dossierDao.findOrCreateByName("Racine");
+                dossier = dossierDao.findOrCreateRacineForUser(user);
             } else if ("nouveau".equals(dossierParam)) {
                 if (nouveauDossierNom != null && !nouveauDossierNom.trim().isEmpty()) {
                     dossier = new Dossier(nouveauDossierNom.trim());
@@ -98,11 +98,11 @@ public class DepotDocumentServlet extends HttpServlet {
                 Long dossierId = Long.parseLong(dossierParam);
                 dossier = dossierDao.findById(dossierId);
                 if (dossier == null) {
-                    dossier = dossierDao.findOrCreateByName("Racine");
+                    dossier = dossierDao.findOrCreateRacineForUser(user);
                 }
             }
         } catch (Exception e) {
-            dossier = dossierDao.findOrCreateByName("Racine");
+            dossier = dossierDao.findOrCreateRacineForUser(user);;
         }
 
         // 📁 Créer le dossier de stockage si nécessaire
